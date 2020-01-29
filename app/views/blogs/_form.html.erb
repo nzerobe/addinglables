@@ -37,6 +37,15 @@
     <%= f.select :priority, ['Low','Medium','High']%>
   </div>
 
+   <div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"ラベル" %>
+        <% Label.all.each do |label| %>
+          <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+          <label><%= label.name %></label>
+        <% end %>
+      </div>
+    </div>
  
 
   <%= f.submit class:'btn btn-primary btn-block' %>

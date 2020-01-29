@@ -9,7 +9,12 @@ class Blog < ApplicationRecord
   validates :status, presence: true
    scope :sort_deadline, -> { order(deadline: :desc) }
 
-#   enum status: {"Off": 0, "Pending": 1, "In motion": 2}
+   has_many :blog_labels, dependent: :destroy, inverse_of: :blog
+  has_many :labels, through: :blog_labels, source: :label
+  
+   accepts_nested_attributes_for :blog_labels, allow_destroy: true
+  
+
   enum priority:{"Low": 0, "Medium": 1, "High": 2}
 
   scope :sort_deadline, -> { order(deadline: :desc) }
@@ -19,7 +24,7 @@ class Blog < ApplicationRecord
   scope :sort_priority, -> { order(priority: :asc) }
   scope :search_title, -> (title){where('title Like ?',"%#{title}%")}
   scope :search_status, -> (status){where('status = ?',status)}
-#   scope :search_all,-> (title,status){where('title Like ? and status = ?',"%#{title}%",status)}
+   scope :search_label, -> (label_id){ where(id: label_ids = BlogLabel.where(label_id: label_id).pluck(:blog_id))}
 
 end
 

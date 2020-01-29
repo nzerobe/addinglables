@@ -1,50 +1,48 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy] 
   before_action :first_login
-#  PER = 10
-   
 
   def index
-#     @blogs = Blog.order(:last_blog).page(params[:page])
+#     
     if params[:blog] && params[:blog][:search]
       if params[:blog][:title] == "" && params[:blog][:status] == "" 
         redirect_to blogs_path
       elsif params[:blog][:title].present? && params[:blog][:status].present?
-#         @blogs = Blog.title_search(params[:blog][:title]).status_search(params[:blog][:status]).page(params[:page])
+#         
         @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).search_status(params[:blog][:status]).per(3)
         @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).search_status(params[:blog][:status]).per(3)
       elsif params[:blog][:title].present?
-#         @blogs = Blog.title_search(params[:blog][:title]).page(params[:page])
+#         
         @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).per(3)
       elsif params[:blog][:status].present?
-#         @blogs = Blog.status_search(params[:blog][:status]).page(params[:page])
-#          @blogs = Blog.search_status(params[:status]).page(params[:page]).per(PER)
+#         
          @blogs =Blog.page(params[:page]).search_status(params[:blog][:status]).per(3)
        end
     elsif params[:sort_expired]
        @blogs = Blog.all.sort_deadline.page(params[:page]).per(3)
     elsif params[:sort_priority]
       @blogs = Blog.order('priority DESC').page(params[:page]).per(3)
+      elsif params[:label_id].present?
+      @blogs = Blog.search_label(params[:label_id]).page(params[:page]).per(3)
     else
       @blogs = Blog.all.order('created_at DESC').page(params[:page]).per(3)
-#       @blogs = Kaminari.paginate_array(@blogs).page(params[:page]).per(PER)
-#       @blogs = Blog.order(:last_name).page(params[:page])
-    end
+
+  end
   end
 
   def new
-#     @blogs = Blog.new
-#     @blogs.user_id = current_user.id
+
     @blogs = current_user.blogs.build
+    @label_ids = params[:blog][:label_ids]
   end
   
   def create
    @blogs = current_user.blogs.build(blog_params)
-    
+   @label_ids = params[:blog][:label_ids]
     if @blogs.save
 
       redirect_to blogs_path
-      flash[:success] = 'Blog Created'
+      flash[:success] = 'Blog Created!!'
     else
       render 'new'
     end
@@ -75,10 +73,10 @@ class BlogsController < ApplicationController
   
   private
 
-   def blog_params
-    params.require(:blog).permit(:title,:content,:deadline,:status,:priority,:user_id)
+  def blog_params
+    params.require(:blog).permit(:title,:content,:deadline,:status,:priority,:user_id, label_ids: [])
   end
-  
+   
   def set_blog
     @blog = Blog.find(params[:id])
   end
