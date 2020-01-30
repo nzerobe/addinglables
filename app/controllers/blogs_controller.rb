@@ -39,7 +39,7 @@ class BlogsController < ApplicationController
   
   def create
    @blogs = current_user.blogs.build(blog_params)
-#    @label_ids = params[:blog][:label_ids]
+    
     if @blogs.save
 
       redirect_to blogs_path
@@ -52,15 +52,17 @@ class BlogsController < ApplicationController
  
   def show
    @blogs = Blog.find(params[:id])
+    @labels = Label.all
   end
   
   def edit
-     @blogs = Blog.find(params[:id])
+#      @blogs = Blog.find(params[:id])
     @labels = Label.all
   end
     
   def update
     @blogs = Blog.find(params[:id])
+    @labels = Label.all
     if @blogs.update(blog_params)
       redirect_to blogs_path, Notice: "You have edited this blog！"
     else
