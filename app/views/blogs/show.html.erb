@@ -8,8 +8,8 @@
       <p>Deadline: <%= @blog.deadline %></p>
       <p>Status: <%= @blog.status %></p>
       <p>Priority: <%= @blog.priority %></p>
-      <% @blog.labels.each do |label| %>
-        <p>Name Of La：<%= label.name %></p>
+      <% @labels.each do |label| %>
+        <p>Name Of Label：<%= label.name %></p>
       <% end %>
       <br>
       <%= link_to 'Blog list screen', blogs_path,class:"btn btn-primary", id:"sendMessageButton" %>

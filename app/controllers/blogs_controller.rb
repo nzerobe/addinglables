@@ -33,12 +33,13 @@ class BlogsController < ApplicationController
   def new
 
     @blogs = current_user.blogs.build
-    @label_ids = params[:blog][:label_ids]
+#     @label_ids = params[:blog][:label_ids]
+    @labels = Label.all
   end
   
   def create
    @blogs = current_user.blogs.build(blog_params)
-   @label_ids = params[:blog][:label_ids]
+#    @label_ids = params[:blog][:label_ids]
     if @blogs.save
 
       redirect_to blogs_path
@@ -55,6 +56,7 @@ class BlogsController < ApplicationController
   
   def edit
      @blogs = Blog.find(params[:id])
+    @labels = Label.all
   end
     
   def update

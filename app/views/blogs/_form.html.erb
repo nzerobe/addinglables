@@ -39,9 +39,9 @@
 
    <div class="control-group form-group">
       <div class="controls">
-        <%= form.label :"ラベル" %>
-        <% Label.all.each do |label| %>
-          <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+        <%= f.label :"Label" %>
+        <% @labels.each do |label| %>
+          <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
           <label><%= label.name %></label>
         <% end %>
       </div>
