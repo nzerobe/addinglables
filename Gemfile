@@ -85,4 +85,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
-gem 'ransack', '~> 1.7'
+
+gem 'ransack', '~> 2.1', '>= 2.1.1'
+gem 'nokogiri', '~> 1.10', '>= 1.10.7'

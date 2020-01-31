@@ -7,9 +7,7 @@ class BlogsController < ApplicationController
     if params[:blog] && params[:blog][:search]
       if params[:blog][:title] == "" && params[:blog][:status] == "" 
         redirect_to blogs_path
-      elsif params[:blog][:title].present? && params[:blog][:status].present?
-#         
-        @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).search_status(params[:blog][:status]).per(3)
+      elsif params[:blog][:title].present? && params[:blog][:status].present?       
         @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).search_status(params[:blog][:status]).per(3)
       elsif params[:blog][:title].present?
 #         
@@ -27,7 +25,7 @@ class BlogsController < ApplicationController
     else
       @blogs = Blog.all.order('created_at DESC').page(params[:page]).per(3)
 
-  end
+    end
   end
 
   def new
@@ -45,6 +43,7 @@ class BlogsController < ApplicationController
       redirect_to blogs_path
       flash[:success] = 'Blog Created!!'
     else
+      @labels = Label.all
       render 'new'
     end
   end
@@ -56,7 +55,7 @@ class BlogsController < ApplicationController
   end
   
   def edit
-#      @blogs = Blog.find(params[:id])
+     @blogs = Blog.find(params[:id])
     @labels = Label.all
   end
     
@@ -78,7 +77,7 @@ class BlogsController < ApplicationController
   private
 
   def blog_params
-    params.require(:blog).permit(:title,:content,:deadline,:status,:priority,:user_id, label_ids: [])
+    params.require(:blog).permit(:title, :content, :deadline, :status, :priority, :user_id, label_ids: [])
   end
    
   def set_blog

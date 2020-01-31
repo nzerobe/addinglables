@@ -19,8 +19,7 @@ class Blog < ApplicationRecord
 
   scope :sort_deadline, -> { order(deadline: :desc) }
   scope :sort_create, -> { order(created_at: :desc) }
-  scope :sort_deadline, -> { order(deadline: :desc) }
-  scope :sort_create, -> { order(created_at: :desc) }
+   scope :sort_create, -> { order(created_at: :desc) }
   scope :sort_priority, -> { order(priority: :asc) }
   scope :search_title, -> (title){where('title Like ?',"%#{title}%")}
   scope :search_status, -> (status){where('status = ?',status)}
