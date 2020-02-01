@@ -9,6 +9,11 @@
 
   <%= f.label :status_search %>
   <%= f.select :status, ['Off','Pending','In motion'],{include_blank: 'Select Box'} %>
+  <%= f.label :label_key, 'Search By Label' %>
+
+   <%= f.select :label_id, Label.all.map{|t| [t.name, t.id]}, {include_blank: true, selected: ''} %>
+   <%= f.hidden_field :search, value: 'true' %>
+
 
   <%= f.hidden_field :search, value: 'true' %>
   <%= f.submit 'Search', class: 'btn btn-outline-primary' %>
