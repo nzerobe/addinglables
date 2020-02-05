@@ -1,13 +1,16 @@
 class Blog < ApplicationRecord
  
+  
+   paginates_per 7
+  
    belongs_to :user, optional: true
-  paginates_per 7
+ 
   
   validates :title, presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 140 }
    validates :deadline, presence: true
   validates :status, presence: true
-   scope :sort_deadline, -> { order(deadline: :desc) }
+   
 
    has_many :blog_labels, dependent: :destroy, inverse_of: :blog
   has_many :labels, through: :blog_labels, source: :label
@@ -16,7 +19,8 @@ class Blog < ApplicationRecord
   
 
   enum priority:{"Low": 0, "Medium": 1, "High": 2}
-
+  
+  scope :sort_deadline, -> { order(deadline: :desc) }
   scope :sort_deadline, -> { order(deadline: :desc) }
   scope :sort_create, -> { order(created_at: :desc) }
    scope :sort_create, -> { order(created_at: :desc) }

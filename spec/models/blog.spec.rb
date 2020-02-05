@@ -14,7 +14,7 @@ RSpec.describe Blog, type: :model do
 
   it "validation passes If content is described in title and content" do
     # Describe the contents here
-    blog = Blog.new(title: 'Valid', content: 'Valid')
+    blog = Blog.new(title: 'Valid', content: 'Valid', status: 'off')
     expect(blog).to be_valid
     
   end

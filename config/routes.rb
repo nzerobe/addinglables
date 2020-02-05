@@ -1,18 +1,14 @@
 Rails.application.routes.draw do
  
-  namespace :admin do
-    get 'users/list'
-    get 'users/edit'
-    get 'users/index'
-    get 'users/new'
-    get 'users/show'
-  end
+  
   root to: 'blogs#index'
   resources :blogs
  
   resources :blogs, only: [:new, :create, :edit, :destroy]
   resources :sessions, only: [:new, :create, :edit, :destroy]
   resources :users
+  
+  resources :labels, only: [:create, :destroy]
   
   namespace :admin do
     resources :users
