@@ -31,13 +31,18 @@ class Admin::UsersController < ApplicationController
   end
 
 
-  def update
-    if @user.update(user_params)
-      redirect_to admin_users_path, notice: "User 【#{@user.name} Updated"
-    end
-  end
+#   def update
+#     if @user.update(user_params)
+#       redirect_to admin_users_path, notice: "User 【#{@user.name} Updated"
+#     end
+#   end
   
-
+def update
+  if @user.update_columns(name: user_params[:name], email: user_params[:email], admin: user_params[:admin]) ## ignore validation
+    redirect_to admin_users_path, notice: "User 【#{@user.name} Updated"
+  end
+end
+  
 
   def destroy
     @user.destroy
