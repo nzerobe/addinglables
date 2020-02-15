@@ -52,8 +52,10 @@
 
   <br>
 <% if params[:search] != "true" %>
- <%= link_to t('view.link.task.sort by Expiration'), blogs_path(sort_expired: "true"), class: "btn btn-outline-secondary" %> 
-  <%= link_to t('view.link.task.sort by priority'), blogs_path(sort_priority: "true"), class: "btn btn-outline-secondary" %> 
+ 
+
+<%= link_to t('view.link.task.sort by Expiration'), blogs_path(sort_option: "deadline"), class: "btn btn-outline-secondary" %> 
+ <%= link_to t('view.link.task.sort by priority'), blogs_path(sort_option: "priority"), class: "btn btn-outline-secondary" %> 
  
 <% else %>
  <%= link_to t('view.link.task.display all blogs'), blogs_path,  class: "btn btn-outline-secondary" %>
