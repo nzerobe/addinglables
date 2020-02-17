@@ -93,8 +93,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-  if Bullet.enable?
-    config.before(:each) { Bullet.start_request }
-    config.after(:each)  { Bullet.end_request }
-  end
+#   if Bullet.enable?
+#     config.before(:each) { Bullet.start_request }
+#     config.after(:each)  { Bullet.end_request }
+#   end
 end
