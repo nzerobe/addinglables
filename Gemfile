@@ -87,5 +87,5 @@ group :development, :test do
 end
 
 gem 'ransack', '~> 2.1'
-gem 'nokogiri', '~> 1.10', '>= 1.10.7'
+gem 'nokogiri', '~> 1.11'
 gem 'bullet', group: 'development'
